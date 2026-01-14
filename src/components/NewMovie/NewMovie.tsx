@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import { TextField } from '../TextField';
-
-interface MovieData {
-  title: string;
-  description: string;
-  imgUrl: string;
-  imdbUrl: string;
-  imdbId: string;
-}
+import { Movie } from '../../types/Movie';
 
 type Props = {
-  onAdd: (movie: MovieData) => void;
+  onAdd: (movie: Movie) => void;
 };
 
 export const NewMovie: React.FC<Props> = ({ onAdd }) => {
@@ -21,12 +14,12 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   const [imdbUrl, setImdbUrl] = useState('');
   const [imdbId, setImdbId] = useState('');
 
-  const disableButton = !title || !imgUrl || !imdbUrl || !imdbId;
+  const disableButton = !title.trim() || !imgUrl.trim() || !imdbUrl.trim() || !imdbId.trim();
 
   const handleSend = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const newMovie: MovieData = {
+    const newMovie: Movie = {
       title: title,
       description: description,
       imgUrl: imgUrl,
@@ -42,7 +35,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
     setImdbUrl('');
     setImdbId('');
 
-    setCount(x => x + 1);
+    setCount(prevCount => prevCount + 1);
   };
 
   return (
